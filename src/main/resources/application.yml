@@ -3,4 +3,4 @@ server:
 
 logging:
   level:
-    io.npee.netty.websocket: DEBUG
+    io.npee.netty.stomp: DEBUG
