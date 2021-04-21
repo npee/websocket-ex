@@ -1,6 +1,6 @@
-package io.npee.netty.websocket.controller;
+package io.npee.netty.stomp.controller;
 
-import io.npee.netty.websocket.model.ChatMessage;
+import io.npee.netty.stomp.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;

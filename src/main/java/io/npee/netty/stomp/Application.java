@@ -1,4 +1,4 @@
-package io.npee.netty.websocket;
+package io.npee.netty.stomp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

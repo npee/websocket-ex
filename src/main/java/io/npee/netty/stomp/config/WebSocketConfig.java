@@ -1,4 +1,4 @@
-package io.npee.netty.websocket.config;
+package io.npee.netty.stomp.config;
 
 
 import org.springframework.context.annotation.Configuration;

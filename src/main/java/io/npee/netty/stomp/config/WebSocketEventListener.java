@@ -1,6 +1,6 @@
-package io.npee.netty.websocket.config;
+package io.npee.netty.stomp.config;
 
-import io.npee.netty.websocket.model.ChatMessage;
+import io.npee.netty.stomp.model.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

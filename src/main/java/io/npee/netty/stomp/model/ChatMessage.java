@@ -1,4 +1,4 @@
-package io.npee.netty.websocket.model;
+package io.npee.netty.stomp.model;
 
 import lombok.Data;
 
