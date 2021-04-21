@@ -4,3 +4,9 @@ server:
 logging:
   level:
     io.npee.netty.stomp: DEBUG
+spring:
+  redis:
+    # host: localhost
+    # docker
+    host: 172.18.0.2
+    port: 6379
