@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ChatUser {
     private String userId;
-    private String name;
+    private String sender;
 }
