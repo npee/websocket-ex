@@ -28,8 +28,20 @@ public class ChatController {
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage) {
         ChatUser chatUser = new ChatUser();
-        chatUser.setUserId(UUID.randomUUID().toString());
-        chatUser.setName(chatMessage.getSender());
+        // chatUser.setUserId(UUID.randomUUID().toString());
+        chatUser.setSender(chatMessage.getSender());
+        return chatMessage;
+    }
+
+    @MessageMapping("/lobby.addUser")
+    @SendTo("/topic/lobby")
+    public ChatMessage addUserToLobby(@Payload ChatUser chatUser) {
+        log.info("[JOIN] A User joined chat channel: {}", chatUser.getSender());
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setType(ChatMessage.MessageType.JOIN);
+        chatMessage.setUserId(chatUser.getUserId());
+        chatMessage.setSender(chatUser.getSender());
+        chatMessage.setContent(chatUser.getSender() + " joined lobby!");
         return chatMessage;
     }
 }
