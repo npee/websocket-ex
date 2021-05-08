@@ -1,6 +1,7 @@
 package io.npee.netty.stomp.controller;
 
 import io.npee.netty.stomp.model.ChatMessage;
+import io.npee.netty.stomp.model.ChatRoom;
 import io.npee.netty.stomp.model.ChatUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,5 +44,14 @@ public class ChatController {
         chatMessage.setSender(chatUser.getSender());
         chatMessage.setContent(chatUser.getSender() + " joined lobby!");
         return chatMessage;
+    }
+
+    @MessageMapping("/lobby.addRoom")
+    @SendTo("/topic/lobby")
+    public ChatRoom addRoom(@Payload ChatMessage chatMessage) {
+        log.info("[CREATE] A User created new room: {}", chatMessage.getSender());
+        ChatRoom chatRoom = ChatRoom.create(chatMessage.getContent());
+        // TODO: return room list
+        return chatRoom;
     }
 }
