@@ -37,7 +37,7 @@ public class ChatController {
     @MessageMapping("/lobby.addUser")
     @SendTo("/topic/lobby")
     public ChatMessage addUserToLobby(@Payload ChatUser chatUser) {
-        log.info("[JOIN] A User joined chat channel: {}", chatUser.getSender());
+        log.info("[JOIN] A User joined chat channel: [{}]", chatUser.getSender());
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setType(ChatMessage.MessageType.JOIN);
         chatMessage.setUserId(chatUser.getUserId());
@@ -49,7 +49,7 @@ public class ChatController {
     @MessageMapping("/lobby.addRoom")
     @SendTo("/topic/lobby")
     public ChatRoom addRoom(@Payload ChatMessage chatMessage) {
-        log.info("[CREATE] A User created new room: {}", chatMessage.getSender());
+        log.info("[CREATE] User [{}] created new room: [{}]", chatMessage.getSender(), chatMessage.getContent());
         ChatRoom chatRoom = ChatRoom.create(chatMessage.getContent());
         // TODO: return room list
         return chatRoom;
