@@ -33,25 +33,4 @@ public class ChatController {
         chatUser.setSender(chatMessage.getSender());
         return chatMessage;
     }
-
-    @MessageMapping("/lobby.addUser")
-    @SendTo("/topic/lobby")
-    public ChatMessage addUserToLobby(@Payload ChatUser chatUser) {
-        log.info("[JOIN] A User joined chat channel: [{}]", chatUser.getSender());
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setType(ChatMessage.MessageType.JOIN);
-        chatMessage.setUserId(chatUser.getUserId());
-        chatMessage.setSender(chatUser.getSender());
-        chatMessage.setContent(chatUser.getSender() + " joined lobby!");
-        return chatMessage;
-    }
-
-    @MessageMapping("/lobby.addRoom")
-    @SendTo("/topic/lobby")
-    public ChatRoom addRoom(@Payload ChatMessage chatMessage) {
-        log.info("[CREATE] User [{}] created new room: [{}]", chatMessage.getSender(), chatMessage.getContent());
-        ChatRoom chatRoom = ChatRoom.create(chatMessage.getContent());
-        // TODO: return room list
-        return chatRoom;
-    }
 }
