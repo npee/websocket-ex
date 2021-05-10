@@ -1,5 +1,7 @@
 package io.npee.netty.stomp.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.npee.netty.stomp.listener.RedisChatSubscriber;
 import io.npee.netty.stomp.model.ChatRoom;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class ChatRoomRepository {
 
+    private final ObjectMapper mapper;
+
     private final RedisMessageListenerContainer listenerContainer;
     private final RedisChatSubscriber subscriber;
 
@@ -32,8 +36,11 @@ public class ChatRoomRepository {
         channelTopics = new HashMap<>();
     }
 
-    public ChatRoom createChatRoom(String name) {
+    public ChatRoom createChatRoom(String name) throws JsonProcessingException {
         ChatRoom room = ChatRoom.create(name);
+        log.info("room: {}", room.toString());
+        String string = mapper.writeValueAsString(room);
+        log.info("room as string: {}", string);
         opsHashChatRooms.put(CHAT_ROOMS, room.getRoomId(), room);
         return room;
     }
