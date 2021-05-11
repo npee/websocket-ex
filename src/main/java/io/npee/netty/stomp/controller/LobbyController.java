@@ -33,12 +33,14 @@ public class LobbyController {
 
     @MessageMapping("/lobby.addRoom")
     @SendTo("/topic/lobby")
-    public ChatRoom addRoom(@Payload ChatMessage chatMessage) throws JsonProcessingException {
+    public ChatMessage addRoom(@Payload ChatMessage chatMessage) throws JsonProcessingException {
         log.info("[CREATE] User [{}] created new room: [{}]", chatMessage.getSender(), chatMessage.getContent());
         // ChatRoom chatRoom = ChatRoom.create(chatMessage.getContent());
-        ChatRoom chatRoom = chatRoomRepository.createChatRoom(chatMessage.getContent());
+        String chatRoom = chatRoomRepository.createChatRoom(chatMessage.getContent());
+        chatMessage.setType(ChatMessage.MessageType.CREATE);
+        chatMessage.setContent(chatRoom);
         // TODO: return room list
-        return chatRoom;
+        return chatMessage;
     }
 
 }
