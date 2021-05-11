@@ -27,7 +27,7 @@ public class ChatRoomRepository {
 
     private static final String CHAT_ROOMS = "CHAT_ROOMS";
     private final RedisTemplate<String, Object> redisTemplate;
-    private HashOperations<String, String, ChatRoom> opsHashChatRooms;
+    private HashOperations<String, String, String> opsHashChatRooms;
     private HashMap<String, ChannelTopic> channelTopics;
 
     @PostConstruct
@@ -36,13 +36,11 @@ public class ChatRoomRepository {
         channelTopics = new HashMap<>();
     }
 
-    public ChatRoom createChatRoom(String name) throws JsonProcessingException {
+    public String createChatRoom(String name) throws JsonProcessingException {
         ChatRoom room = ChatRoom.create(name);
-        log.info("room: {}", room.toString());
-        String string = mapper.writeValueAsString(room);
-        log.info("room as string: {}", string);
-        opsHashChatRooms.put(CHAT_ROOMS, room.getRoomId(), room);
-        return room;
+        String roomAsString = mapper.writeValueAsString(room);
+        opsHashChatRooms.put(CHAT_ROOMS, room.getRoomId(), roomAsString);
+        return roomAsString;
     }
 
     public void enterChatRoom(String roomId) {
