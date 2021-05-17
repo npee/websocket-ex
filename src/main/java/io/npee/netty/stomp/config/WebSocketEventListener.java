@@ -23,7 +23,7 @@ public class WebSocketEventListener implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        log.info("application event fired [{}]", event.getClass());
+        log.info("event fired ------------------- [{}]", event.getClass());
     }
 
     @EventListener
