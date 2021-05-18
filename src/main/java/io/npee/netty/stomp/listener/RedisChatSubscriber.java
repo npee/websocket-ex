@@ -24,10 +24,11 @@ public class RedisChatSubscriber implements MessageListener {
     public void onMessage(Message message, byte[] pattern) {
         log.info("onMessage");
         String pubMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
-        // String pubPattern = (String) redisTemplate.getStringSerializer().deserialize(pattern);
+        String pubPattern = (String) redisTemplate.getStringSerializer().deserialize(pattern);
+        log.info("pubPattern  : {}", pubPattern); // roomId
         try {
             ChatMessage chatMessage = objectMapper.readValue(pubMessage, ChatMessage.class);
-            simpMessageSendingOperations.convertAndSend("/topic/public", chatMessage);
+            simpMessageSendingOperations.convertAndSend("/topic/" + chatMessage.getRoomId(), chatMessage);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
